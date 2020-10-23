@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%response.sendRedirect("main.do"); %>
-
+<jsp:include page="../menu/mainMenu.jsp"/>
+<div align="center">
+<h1>회원가입 실패했습니다</h1>
+</div>
 </body>
 </html>

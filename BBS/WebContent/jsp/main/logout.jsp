@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%response.sendRedirect("main.do"); %>
-
+<div align="center">
+	<div><h1>${name }님이 로그아웃 되었습니다.</h1></div>
+</div>
 </body>
 </html>

@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%response.sendRedirect("main.do"); %>
-
+<jsp:include page="../menu/mainMenu.jsp"/>
+<hr>
+홈페이지에 오신걸 환영합니다.
 </body>
 </html>
