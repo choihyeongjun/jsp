@@ -22,7 +22,7 @@ public class LoginAction implements Action {
 		vo=dao.select(vo);
 		if(vo.getPassword().equals(request.getParameter("password"))) {
 		session.setAttribute("id",vo.getId());//session에 id담기
-		session.setAttribute("author",vo.getId());//session에 권한담기
+		session.setAttribute("author",vo.getAuthor());//session에 권한담기
 		session.setAttribute("name",vo.getName());
 		msg="정상적인 로그인";
 		request.setAttribute("msg",msg);

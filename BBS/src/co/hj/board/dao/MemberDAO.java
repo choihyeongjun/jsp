@@ -14,16 +14,22 @@ public class MemberDAO extends DAO {
 	private ResultSet rs; //결과를 받을떄
 	private MemberVO vo;
 	
-	private final String SELECT_ALL ="SELECT * FROM MEMBER";
+	private final String SELECT_ALL =" select * from( select a.*,rownum rn  from("
+			+ "SELECT * FROM MEMBER order by id"
+			+ ")a)b  where rn between ? and ?";
 	private final String SELECT="SELECT * FROM MEMBER WHERE ID=?";
-	private final String INSERT="INSERT INTO MEMBER(ID,NAME,PASSWORD,ADDRESS,TEL,ENTERDATE)"
-			+ " VALUES(?,?,?,?,?,?)";
+	private final String INSERT="INSERT INTO MEMBER(ID,NAME,PASSWORD,ADDRESS,TEL,ENTERDATE,IMG)"
+			+ " VALUES(?,?,?,?,?,?,?)";
 	private final String UPDATE="UPDATE MEMBER SET NAME=?,PASSWORD=? ADDRESS=?, TEL=?  WHERE ID=?";
 	private final String DELETE="DELETE FROM MEMBER WHERE ID=?";
-	public List<MemberVO> selectAll(){
+	
+	
+	public List<MemberVO> selectAll(MemberVO mvo){
 		List<MemberVO> list=new ArrayList<>();
 		try {
 			psmt=conn.prepareStatement(SELECT_ALL);
+			psmt.setInt(1, mvo.getFirst());
+			psmt.setInt(2, mvo.getLast());
 			rs=psmt.executeQuery();                                                                                                                                                                                                                                 
 				while(rs.next()) {
 					vo=new MemberVO();
@@ -34,6 +40,7 @@ public class MemberDAO extends DAO {
 					vo.setAddress(rs.getString("address"));
 					vo.setTel(rs.getString("tel"));
 					vo.setEnterdate(rs.getDate("enterdate"));
+					vo.setImg(rs.getString("img"));
 					list.add(vo);
 					
 				}
@@ -44,6 +51,22 @@ public class MemberDAO extends DAO {
 		}
 		return list;
 	}
+	public int count(MemberVO vo) {
+		int cnt=0;
+		try {
+			String sql="select count(*) from member";
+			psmt=conn.prepareStatement(sql);
+			rs=psmt.executeQuery();
+			rs.next();
+			cnt=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return cnt;
+	}
+	
 	public MemberVO select(MemberVO vo) {
 		try {
 			psmt=conn.prepareStatement(SELECT);
@@ -76,6 +99,7 @@ public class MemberDAO extends DAO {
 			psmt.setString(4,vo.getAddress());
 			psmt.setString(5,vo.getTel());
 			psmt.setDate(6,vo.getEnterdate());
+			psmt.setString(7,vo.getImg());
 			n=psmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

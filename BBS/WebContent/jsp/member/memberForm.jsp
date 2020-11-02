@@ -12,7 +12,8 @@
 <div align="center">
 	<div><h1>회 원 가 입</h1></div>
 	<div>
-		<form id="frm" name="frm" action="memberInsert.do" method="post">
+		<form id="frm" name="frm" action="memberInsert.do" method="post"
+		enctype="multipart/form-data">
 			<table border="1">
 				<tr>
 					<th width="150">아이디 : </th>
@@ -38,6 +39,11 @@
 					<th width="150">가입일자 : </th>
 					<td><input type="date" id="enterdate" name="enterdate"></td>
 				</tr>
+				<tr>
+					<th width="150">사진 : </th>
+					<td><input type="file" id="img" name="img"></td>
+				</tr>
+				
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" value="가입하기">&nbsp;&nbsp;

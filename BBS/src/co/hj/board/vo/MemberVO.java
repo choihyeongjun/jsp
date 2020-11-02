@@ -10,13 +10,37 @@ public class MemberVO {
 	private String tel;
 	private Date enterdate;
 	private String author;
+	private String img;
+	private Integer first;
+	private Integer last;
 	
-	
+	public Integer getFirst() {
+		return first;
+	}
+
+	public void setFirst(Integer first) {
+		this.first = first;
+	}
+
+	public Integer getLast() {
+		return last;
+	}
+
+	public void setLast(Integer last) {
+		this.last = last;
+	}
+
 	public MemberVO() {
 		
 	}
 
+	public String getImg() {
+		return img;
+	}
 
+	public void setImg(String img) {
+		this.img = img;
+	}
 	public String getId() {
 		return id;
 	}

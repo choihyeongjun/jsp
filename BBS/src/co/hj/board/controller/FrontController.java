@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +22,14 @@ import co.hj.board.command.MemberListAction;
 import co.hj.board.common.Action;
 
 
-@WebServlet("/FrontController")
+
+@WebServlet("*.do")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 2 // size of any uploaded file
+				, maxRequestSize = 1024 * 1024 * 10 // overall size of all uploaded files
+				, fileSizeThreshold = 1024)
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private HashMap<String,Action>map =new HashMap<>();
-    
     
     public FrontController() {
         super();
@@ -44,11 +47,6 @@ public class FrontController extends HttpServlet {
 		map.put("/memberInsert.do",new MemberInsertAction());
 		map.put("/logout.do",new LogoutAction());
 //		map.put("/loginForm.do",new LoginForm());
-		
-		
-		
-		
-		
 	}
 
 	
@@ -62,7 +60,7 @@ public class FrontController extends HttpServlet {
 		Action command=map.get(path);
 		String viewPage=command.exec(request, response);//명령이 수행되고 나서 보여줄 페이지 선택
 		
-		
+
 		RequestDispatcher dispatcher =request.getRequestDispatcher(viewPage); //선택한 페이지로 가기
 		dispatcher.forward(request, response);
 	}
