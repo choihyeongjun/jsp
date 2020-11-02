@@ -1,0 +1,2 @@
+enter user name:    / as sysdba 관리자 모드
+스크립드 실행법 : 경로 + 파일 이름
